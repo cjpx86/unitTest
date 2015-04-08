@@ -11,6 +11,8 @@ CCFLAGS += -I $(TOPDIR)/include
 COBJS-y += print_main.o
 COBJS-y += thread_main.o
 COBJS-y += list_main.o
+COBJS-y += stack_overflower.o
+COBJS-y += emmc_command.o
 
 COBJS	:= $(COBJS-y)
 SRCS	:= $(COBJS:.o=.c)
