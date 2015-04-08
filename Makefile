@@ -44,7 +44,7 @@ LNDIR		  := $(OBJTREE)
 export	TOPDIR SRCTREE OBJTREE 
 
 
-all: print_test thread_test list_test
+all: print_test thread_test list_test stack_overflower emmc_command
 	@echo compile all unit test application
 	#$(MAKE) -f $(TOPDIR)/script/print.mk print_test
 	
@@ -56,10 +56,18 @@ thread_test:
 
 list_test:
 	$(MAKE) -f $(TOPDIR)/script/list.mk list_test
-	
+
+stack_overflower:
+	$(MAKE) -f $(TOPDIR)/script/stack_overflower.mk stack_overflower
+emmc_command:
+	$(MAKE) -f $(TOPDIR)/script/emmc_command.mk emmc_command
 print_test_clean:
 	@echo clean print_test temp files
 	$(MAKE) -f $(TOPDIR)/script/print.mk clean
+
+stack_overflower_clean:
+	@echo clean  stack_overflower temp files
+	$(MAKE) -f $(TOPDIR)/script/stack_overflower.mk clean
 
 thread_test_clean:
 	@echo clean thread_test temp files
@@ -69,7 +77,10 @@ list_test_clean:
 	@echo clean list_test temp files
 	$(MAKE) -f $(TOPDIR)/script/list.mk clean
 
-clean: print_test_clean thread_test_clean list_test_clean
+emmc_command_clean:
+	$(MAKE) -f $(TOPDIR)/script/emmc_command.mk clean
+
+clean: print_test_clean thread_test_clean list_test_clean stack_overflower_clean emmc_command_clean
 	@echo clean the temp files
 	#$(MAKE) -f $(TOPDIR)/script/print.mk clean
 
@@ -85,5 +96,7 @@ PHONY = all clean
 PHONY += print_test print_test_clean
 PHONY += thread_test thread_test_clean
 PHONY += list_test list_test_clean
+PHONY += stack_overflower stack_overflower_clean
+PHONY += emmc_command emmc_command_clean
   
 .PHONY: $(PHONY)
